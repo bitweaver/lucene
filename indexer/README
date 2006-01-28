@@ -5,14 +5,13 @@ yum install java-1.4.2*
 yum install postgresql-jdbc
 # or for myqsl, get the latest .jar file from http://www.mysql.com/products/connector/j/
 
-# To compile the indexer, you need to set your classpath.
+# You can use the .class file that is the package, however, if you want to compile the indexer, you need to set your classpath.
 cd /path/to/bitweaver/lucene/indexer
 export CLASSPATH=`pwd`:`pwd`/lucene-1.4.3.jar:/usr/share/java/postgresql-jdbc3.jar
-
 # Then compile
 javac org/bitweaver/lucene/IndexEngine.java
 
-# To run the file execute something like this for postgresl
+# To run the Indexer execute something like this for postgresl
 java org.bitweaver.lucene.IndexEngine jdbc:postgresql://localhost/bitdb postgres 'tiger' /path/to/bitweaver/temp/lucene/index/
 
 # Or this for MySQL:

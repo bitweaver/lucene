@@ -1,0 +1,32 @@
+######## The bitweaver clucene package requires:
+# 1. PHP 5
+# 2. clucene library
+# 3. php-clucene php module from pecl.php.net
+# 4. java runtime, jdk to compile .class
+
+
+# download clucene tarball (we got the latest which was 0.9.10 ) from clucene.sourceforge.net
+$ ./configure
+$ make
+$ make install
+$ yum install php-devel                                      // to get phpize
+$ pecl install channel://pecl.php.net/clucene-0.0.9          // currently in alpha
+
+# if the pecl install fails, which it does for some, just get the tarball
+# browse to http://pecl.php.net/package/clucene and download tarball
+# following is optional and just confirms that installation worked
+$ wget http://pecl.php.net/get/clucene-0.0.9.tgz
+$ tar -zxvf clucene-0.0.9.tgz
+$ cd clucene-0.0.9/
+$ pecl run-tests tests/                                      // make sure everything is installed as it should be
+$ mv modules/clucene.so /usr/lib/php/modules/ #or whatever your path to php modueles is
+
+# echo "extension=clucene.so" > /etc/php.d/clucene.ini           // load the clucene module on php start
+# /sbin/service httpd restart                                // restart the httpd server
+
+
+# Once clucene are php-clucene are installed, you now need to run the indexer.
+
+cd indexer/
+
+# and read the README in there.
