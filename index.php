@@ -27,6 +27,6 @@ if( isset( $_REQUEST['search_phrase'] ) ) {
 
 $gBitSmarty->assign_by_ref( 'feedback', $feedback );
 
-$gBitSystem->display( 'bitpackage:clucene/clucene_search.tpl' );
+$gBitSystem->display( 'bitpackage:lucene/lucene_search.tpl' );
 
 ?>
