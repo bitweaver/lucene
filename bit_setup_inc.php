@@ -1,4 +1,4 @@
 <?php
 global $gBitSystem;
-$gBitSystem->registerPackage( 'clucene', dirname( __FILE__ ).'/' );
+$gBitSystem->registerPackage( 'lucene', dirname( __FILE__ ).'/' );
 ?>
