@@ -1,0 +1,19 @@
+# First, you need java. This works on newer Fedora's
+yum install java-1.4.2*
+
+# To run the indexer, you need to install the approprate jdbc driver, such as:
+yum install postgresql-jdbc
+# or for myqsl, get the latest .jar file from http://www.mysql.com/products/connector/j/
+
+# To compile the indexer, you need to set your classpath.
+cd /path/to/bitweaver/lucene/indexer
+export CLASSPATH=`pwd`:`pwd`/lucene-1.4.3.jar:/usr/share/java/postgresql-jdbc3.jar
+
+# Then compile
+javac org/bitweaver/lucene/IndexEngine.java
+
+# To run the file execute something like this for postgresl
+java org.bitweaver.lucene.IndexEngine jdbc:postgresql://localhost/bitdb postgres 'tiger' /path/to/bitweaver/temp/lucene/index/
+
+# Or this for MySQL:
+java org.bitweaver.lucene.IndexEngine jdbc:mysql://localhost/bitdb root 'tiger' /path/to/bitweaver/temp/lucene/index/
