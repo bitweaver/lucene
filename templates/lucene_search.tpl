@@ -32,7 +32,7 @@
 					<li class="item {cycle values="odd,even"}">
 						<a href="{$smarty.const.BIT_ROOT_URL}index.php?content_id={$searchResults->get($smarty.section.ix.index,'content_id')}&amp;highlight={$smarty.request.highlight|escape:"url"}">{$searchResults->get($smarty.section.ix.index,'title')}</a>
 						<p>
-							{$searchResults->get($smarty.section.ix.index,'data')|truncate:500}
+							{$searchResults->get($smarty.section.ix.index,'data')|escape|truncate:500}
 							<br />
 							{assign var=contentTypeGuid value=$searchResults->get($smarty.section.ix.index,'content_type_guid')}
 							<small>{$gLibertySystem->mContentTypes.$contentTypeGuid.content_description} &nbsp;&bull;&nbsp; {tr}Relevance{/tr}: {$searchResults->score($smarty.section.ix.index)*100|round:0}</small>
