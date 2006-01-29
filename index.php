@@ -18,6 +18,7 @@ try {
 	$feedback['error'] = 'The search index is unavailable: '.$e->getMessage();
 }
 
+// TODO: for some reason highlight smarty function is called too late and the strings aren't highlited until the second search
 if( isset( $_REQUEST['search_phrase'] ) ) {
 	$query = $_REQUEST['search_phrase'];
 	$hits = $searcher->search( $query );
