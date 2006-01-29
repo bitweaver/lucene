@@ -22,7 +22,7 @@
 	<li class="item"><div style="float:right"> {$searchResults->score($smarty.section.ix.index)*100|round:1}</div>
 		<a href="{$smarty.const.BIT_ROOT_URL}index.php?content_id={$searchResults->get($smarty.section.ix.index,'content_id')}">{$searchResults->get($smarty.section.ix.index,'title')}</a><br/>
 		{assign var=contentTypeGuid value=$searchResults->get($smarty.section.ix.index,'content_type_guid')}
-		{$gLibertySystem.mContentTypes.$contentTypeGuid.content_description}<br />
+		{$gLibertySystem->mContentTypes.$contentTypeGuid.content_description}<br />
 	</li>
 {/section}
 </ul>
