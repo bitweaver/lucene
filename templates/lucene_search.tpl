@@ -14,7 +14,7 @@
 			<div class="row">
 				{formlabel label="Search term" for="search_phrase"}
 				{forminput}
-					<input type="text" name="search_phrase" id="search_phrase" value="{$smarty.request.search_phrase}" />
+					<input size="35" type="text" name="search_phrase" id="search_phrase" value="{$smarty.request.search_phrase}" />
 					{formhelp note=""}
 				{/forminput}
 			</div>
