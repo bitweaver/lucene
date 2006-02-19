@@ -1,4 +1,8 @@
 <?php
 global $gBitSystem;
-$gBitSystem->registerPackage( 'lucene', dirname( __FILE__ ).'/' );
+$registerHash = array(
+	'package_name' => 'lucene',
+	'package_path' => dirname( __FILE__ ).'/',
+);
+$gBitSystem->registerPackage( $registerHash );
 ?>
