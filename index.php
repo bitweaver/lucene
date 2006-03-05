@@ -5,6 +5,8 @@ require_once( '../bit_setup_inc.php' );
 /* $field is the default field to be searched. */
 $field = "data";
 
+$gBitSystem->verifyPackage( 'lucene' );
+
 $indexDir = $gBitSystem->getConfig( 'lucene_index_dir', TEMP_PKG_PATH.'lucene/index' );
 
 mkdir_p( $indexDir );

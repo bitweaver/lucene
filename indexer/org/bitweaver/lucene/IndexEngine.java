@@ -28,14 +28,17 @@ public class IndexEngine {
 			index(getConnection( args[0], args[1], args[2] ), args[3] );
 			System.out.println("Index complete");
 		} catch( ArrayIndexOutOfBoundsException e ) {
-			System.out.println("Usage: javac org.bitweaver.IndexEngine <dbstring, ex: jdbc:mysql://localhost/bitweaver or jdbc:postgresql://localhost/bitweaver> <dbuser> <dbpassword> /path/to/bitweaver/temp/index");
+			System.out.println("Usage: javac org.bitweaver.IndexEngine <dbstring, ex: jdbc:mysql://localhost/bitweaver or jdbc:postgresql://localhost/bitweaver> <dbuser> <dbpassword> <db_table_prefix>");
 		}
 	}
 
-	private static void index(Connection conn, String pIndexPath) throws Exception {
+	private static void index(Connection conn, String pDbPrefix) throws Exception {
+
+		String sql = "select * from ".pDbPrefix."lucene_indices WHERE title IS NOT NULL";
+
 
 		// this is the query we are going to use to populate our index
-		String sql = "select * from tiki_content WHERE title IS NOT NULL";
+		String sql = "select * from liberty_content WHERE title IS NOT NULL";
 
  		Analyzer analyzer = new StandardAnalyzer();
  		IndexWriter writer = new IndexWriter(pIndexPath,analyzer,true);
