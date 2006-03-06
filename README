@@ -1,4 +1,23 @@
-######## The bitweaver clucene package requires:
+####### There are two methods to interface with lucene - php-java-bridge and php-clucene
+
+# OPTION #1: php-java-bridge
+# The bitweaver lucene java  package requires:
+# 1. PHP 4/5
+# 2. a java runtime - see indexer/ directory for details installing a java runtime
+# 3. php-java-bridge
+
+# download the latest php-java-bridge from http://php-java-bridge.sourceforge.net/
+# The have niec RPM's for Redhat distros, however if you need to roll your own (like for x86_64),
+# Follow these directions
+# in case you have any classpaths set, nuke them first
+$ unset CLASSPATH
+$ rpmbuild --rebuild php-java-bridge*src.rpm
+$ rpm -ivh /usr/src/redhat/RPMS/x86_64/php-java-bridge-3.0.7-1.x86_64.rpm
+# Edit your php.ini and manually add: extension=java.so
+# restart Apache
+
+# OPTION #2: php-clucene
+# The bitweaver php-clucene package requires:
 # 1. PHP 5
 # 2. clucene library
 # 3. php-clucene php module from pecl.php.net
