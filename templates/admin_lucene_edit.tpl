@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_lucene/templates/admin_lucene_edit.tpl,v 1.2 2006/03/06 00:09:20 spiderr Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_lucene/templates/admin_lucene_edit.tpl,v 1.3 2006/03/06 03:28:37 spiderr Exp $ *}
 {strip}
 
 <div class="floaticon">
@@ -51,7 +51,7 @@
 
 			{if $gLucene->getField('lucene_id')}
 				{jstab title="Index Queries"}
-					{form legend="Add queries used for indexing."}
+					{form legend="Add queries used for indexing. Every column in the SELECT will be indexed automatically."}
 
 					{foreach from=$gLucene->mQueries item=query}
 						<input type="text" name="lucene_query[]" value="{$query}" size="100" /><br/>

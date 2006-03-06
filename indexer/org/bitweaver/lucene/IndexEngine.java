@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -34,11 +35,13 @@ public class IndexEngine {
 
 	private static void index(Connection conn, String pDbPrefix) throws Exception {
 
-		String qSql = "SELECT luci.lucene_id, lucene_query, index_path FROM " + pDbPrefix + "lucene_indices luci INNER JOIN " + pDbPrefix + "lucene_queries lucq ON (lucq.lucene_id=luci.lucene_id) WHERE next_index < "+(System.currentTimeMillis() / 1000);
+		String qSql = "SELECT luci.lucene_id, lucene_query, index_path, index_fields FROM " + pDbPrefix + "lucene_indices luci INNER JOIN " + pDbPrefix + "lucene_queries lucq ON (lucq.lucene_id=luci.lucene_id) WHERE next_index < "+(System.currentTimeMillis() / 1000);
 		PreparedStatement qStmt = conn.prepareStatement(qSql);
 		ResultSet qrs = qStmt.executeQuery();
 
 		while (qrs.next()) {
+
+			qrs.getString("lucene_query");
 
 			// this is the query we are going to use to populate our index
 			String sql = qrs.getString("lucene_query");
@@ -57,6 +60,12 @@ public class IndexEngine {
 
 			System.out.println("Preparing to build index...");
 
+			ResultSetMetaData rsmd = rs.getMetaData();
+
+			String[] fields = new String[rsmd.getColumnCount()] ;
+			for( int i = 1; i <= rsmd.getColumnCount(); i++ ) {
+				fields[i-1] = rsmd.getColumnName(i);
+			}
 			while (rs.next()) {
 				if (count == interval) {
 					java.lang.Thread.sleep(timeout);
@@ -69,12 +78,11 @@ public class IndexEngine {
 
 				Document d = new Document();
 
-				// adding our columns to our Lucene Document object
-				d.add(Field.Text("content_id", rs.getString("content_id")));
-				d.add(Field.Text("title",rs.getString("title")));
-				d.add(Field.Text("content_type_guid", rs.getString("content_type_guid")));
-				if( rs.getString("data") != null ) {
-					d.add(Field.Text("data", rs.getString("data")));
+				for( int i = 0; i < fields.length; i++ ) {
+					// adding our columns to our Lucene Document object
+					if( rs.getString(fields[i]) != null ) {
+						d.add(Field.Text(fields[i], rs.getString(fields[i])));
+					}
 				}
 
 				// adding our document object instance to our writer
