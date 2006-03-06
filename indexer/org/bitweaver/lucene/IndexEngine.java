@@ -34,51 +34,55 @@ public class IndexEngine {
 
 	private static void index(Connection conn, String pDbPrefix) throws Exception {
 
-		String sql = "select * from ".pDbPrefix."lucene_indices WHERE title IS NOT NULL";
+		String qSql = "SELECT luci.lucene_id, lucene_query, index_path FROM " + pDbPrefix + "lucene_indices luci INNER JOIN " + pDbPrefix + "lucene_queries lucq ON (lucq.lucene_id=luci.lucene_id) WHERE next_index < "+(System.currentTimeMillis() / 1000);
+		PreparedStatement qStmt = conn.prepareStatement(qSql);
+		ResultSet qrs = qStmt.executeQuery();
 
+		while (qrs.next()) {
 
-		// this is the query we are going to use to populate our index
-		String sql = "select * from liberty_content WHERE title IS NOT NULL";
+			// this is the query we are going to use to populate our index
+			String sql = qrs.getString("lucene_query");
+			String indexPath = qrs.getString("index_path");
 
- 		Analyzer analyzer = new StandardAnalyzer();
- 		IndexWriter writer = new IndexWriter(pIndexPath,analyzer,true);
- 		PreparedStatement pStmt = conn.prepareStatement(sql);
+			Analyzer analyzer = new StandardAnalyzer();
+			IndexWriter writer = new IndexWriter(indexPath,analyzer,true);
+			PreparedStatement pStmt = conn.prepareStatement(sql);
 
-		System.out.println("Executing query...");
+			System.out.println( "Executing query: "+sql );
+			ResultSet rs = pStmt.executeQuery();
 
-		ResultSet rs = pStmt.executeQuery();
+			int count = 0;
+			int interval = 250;
+			long timeout = 50;
 
-		int count = 0;
-		int interval = 250;
-		long timeout = 50;
+			System.out.println("Preparing to build index...");
 
-		System.out.println("Preparing to build index...");
+			while (rs.next()) {
+				if (count == interval) {
+					java.lang.Thread.sleep(timeout);
+					count = 0;
+				} else {
+					count++;
+				}
 
-		while (rs.next()) {
-			if (count == interval) {
-				java.lang.Thread.sleep(timeout);
-				count = 0;
-			} else {
-				count++;
+				System.out.println("Indexing: " + rs.getString("content_id") + ": " + rs.getString("title"));
+
+				Document d = new Document();
+
+				// adding our columns to our Lucene Document object
+				d.add(Field.Text("content_id", rs.getString("content_id")));
+				d.add(Field.Text("title",rs.getString("title")));
+				d.add(Field.Text("content_type_guid", rs.getString("content_type_guid")));
+				if( rs.getString("data") != null ) {
+					d.add(Field.Text("data", rs.getString("data")));
+				}
+
+				// adding our document object instance to our writer
+				writer.addDocument(d);
 			}
 
-			System.out.println("Indexing: " + rs.getString("content_id") + ": " + rs.getString("title"));
-
-			Document d = new Document();
-
-			// adding our columns to our Lucene Document object
-			d.add(Field.Text("content_id", rs.getString("content_id")));
-			d.add(Field.Text("title",rs.getString("title")));
-			d.add(Field.Text("content_type_guid", rs.getString("content_type_guid")));
-			if( rs.getString("data") != null ) {
-				d.add(Field.Text("data", rs.getString("data")));
-			}
-
-			// adding our document object instance to our writer
-			writer.addDocument(d);
+			writer.close();
 		}
-
-		writer.close();
 	}
 
 	private static Connection getConnection( String pDbConnection, String pDbUser, String pDbPass  ) throws Exception {

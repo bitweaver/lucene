@@ -3,7 +3,7 @@
  * Lucene administration page
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/admin/index.php,v 1.1 2006/03/05 02:40:18 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/admin/index.php,v 1.2 2006/03/06 00:09:19 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -19,27 +19,39 @@
 // +----------------------------------------------------------------------+
 
 include_once( '../../bit_setup_inc.php' );
-include_once( LUCENE_PKG_PATH.'BitLucene.php' );
+
+include_once( '../lookup_lucene_inc.php' );
 
 $mid = 'bitpackage:lucene/admin_lucene_list.tpl';
-
-$luc = new BitLucene();
 
 if( !empty( $_REQUEST['action'] ) ) {
 
 	switch( $_REQUEST['action'] ) {
-		case 'create';
+		case 'edit':
+		case 'create':
 			$mid = 'bitpackage:lucene/admin_lucene_edit.tpl';
 			break;
+		case 'delete':
+			if( empty( $_POST['confirm'] ) ) {
+				$formHash['action'] = 'delete';
+				$formHash['lucene_id'] = $gLucene->mLuceneId;
+				$gBitSystem->confirmDialog( $formHash, array( 'warning' => tra( 'Are you sure you want to delete the search index').' "'.$gLucene->getField('index_title').'"?', 'error' => 'This cannot be undone!' ) );
+			} else {
+				$gLucene->expunge();
+				$indexList = $gLucene->getList( $_REQUEST );
+				$gBitSmarty->assign_by_ref( 'indexList', $indexList );
+			}
+			break;
 	}
-
 } elseif( !empty( $_REQUEST['save'] ) ) {
-	if( !$luc->store( $_REQUEST ) ) {
-		$gBitSmarty->assign_by_ref( 'errors', $luc->mErrors );
+	if( !$gLucene->store( $_REQUEST ) ) {
+		$gBitSmarty->assign_by_ref( 'errors', $gLucene->mErrors );
+	} else {
+		$gLucene->load();
 	}
 	$mid = 'bitpackage:lucene/admin_lucene_edit.tpl';
 } else {
-	$indexList = $luc->getList( $_REQUEST );
+	$indexList = $gLucene->getList( $_REQUEST );
 	$gBitSmarty->assign_by_ref( 'indexList', $indexList );
 }
 

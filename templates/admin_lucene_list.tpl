@@ -21,8 +21,8 @@
 			{foreach from=$indexList key=indexId item=idx}
 				<li class="item {cycle values='odd,even'}">
 					<div class="floaticon">
-						{smartlink ititle="Edit" ipackage="lucene" ifile="admin/index.php" ibiticon="liberty/edit" index_id=$indexId action=edit}
-						{smartlink ititle="Remove" ipackage="lucene" ifile="admin/index.php" ibiticon="liberty/delete" action=delete index_id=$indexId}
+						{smartlink ititle="Edit" ipackage="lucene" ifile="admin/index.php" ibiticon="liberty/edit" lucene_id=$indexId action=edit}
+						{smartlink ititle="Remove" ipackage="lucene" ifile="admin/index.php" ibiticon="liberty/delete" action=delete lucene_id=$indexId}
 					</div>
 
 					<h2>{$idx.index_title}</h2>
@@ -31,7 +31,7 @@
 						{tr}Queries{/tr}
 						<ul class="small">
 							{foreach from=$idx.queries key=queryId item=query}
-								<li>{$query.index_query}</li>
+								<li>{$query}</li>
 							{foreachelse}
 								<li>{tr}none{/tr}</li>
 							{/foreach}

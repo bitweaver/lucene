@@ -5,15 +5,18 @@ $tables = array(
 
 'lucene_indices' => "
 	lucene_id I4 PRIMARY,
-	index_title C(250),
+	index_title C(250) NOTNULL,
+	index_fields X NOTNULL,
 	index_path C(250),
 	index_interval I4,
-	last_indexed I8
+	last_indexed I8 NOTNULL DEFALT '0',
+	next_index I8 NOTNULL DEFALT '0'
 ",
 
-'lucene_index_queries' => "
+'lucene_queries' => "
 	lucene_id I4 NOTNULL,
-	lucene_query X NOTNULL
+	lucene_query X NOTNULL,
+	lucene_index_columns X NOTNULL
 	CONSTRAINT	', CONSTRAINT `lucene_index_queries_ref` FOREIGN KEY (`lucene_id`) REFERENCES `".BIT_DB_PREFIX."lucene_indices` (`lucene_id`)'
 "
 
