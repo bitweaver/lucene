@@ -8,7 +8,7 @@ $tables = array(
 	index_title C(250) NOTNULL,
 	index_fields X NOTNULL,
 	index_path C(250),
-	index_interval I4,
+	index_interval I4 NOTNULL DEFAULT '86400',
 	last_indexed I8 NOTNULL DEFALT '0',
 	next_index I8 NOTNULL DEFALT '0'
 ",

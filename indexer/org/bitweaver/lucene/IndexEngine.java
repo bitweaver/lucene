@@ -35,7 +35,8 @@ public class IndexEngine {
 
 	private static void index(Connection conn, String pDbPrefix) throws Exception {
 
-		String qSql = "SELECT luci.lucene_id, lucene_query, index_path, index_fields FROM " + pDbPrefix + "lucene_indices luci INNER JOIN " + pDbPrefix + "lucene_queries lucq ON (lucq.lucene_id=luci.lucene_id) WHERE next_index < "+(System.currentTimeMillis() / 1000);
+		long indexTime = (System.currentTimeMillis() / 1000);
+		String qSql = "SELECT luci.lucene_id, lucene_query, index_path, index_fields FROM " + pDbPrefix + "lucene_indices luci INNER JOIN " + pDbPrefix + "lucene_queries lucq ON (lucq.lucene_id=luci.lucene_id) WHERE next_index < "+indexTime;
 		PreparedStatement qStmt = conn.prepareStatement(qSql);
 		ResultSet qrs = qStmt.executeQuery();
 
@@ -74,7 +75,7 @@ public class IndexEngine {
 					count++;
 				}
 
-				System.out.println("Indexing: " + rs.getString("content_id") + ": " + rs.getString("title"));
+				System.out.println("Indexing: " + rs.getString(1) + ": " + rs.getString(2));
 
 				Document d = new Document();
 
@@ -90,6 +91,11 @@ public class IndexEngine {
 			}
 
 			writer.close();
+
+			String uSql = "UPDATE " + pDbPrefix + "lucene_indices SET next_index=index_interval+" + indexTime + ", last_indexed=" + indexTime + " WHERE lucene_id = " + qrs.getString("lucene_id");
+			PreparedStatement uStmt = conn.prepareStatement(uSql);
+			uStmt.execute();
+
 		}
 	}
 

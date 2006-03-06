@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.2 2006/03/06 00:09:18 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.3 2006/03/06 04:58:38 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -46,7 +46,13 @@ class BitLucene extends BitBase {
 		if( empty( $pParamHash['index_fields'] ) ) {
 			$this->mErrors['index_fields'] = 'You must enter index fields.';
 		} elseif( !empty( $pParamHash['index_fields'] ) && $this->getField( 'index_fields' ) != $pParamHash['index_fields'] ) {
-			$pParamHash['lucene_store']['index_fields'] = $pParamHash['index_fields'];
+			$pParamHash['lucene_store']['index_fields'] = trim( str_replace( ' ', '', $pParamHash['index_fields'] ) );
+		}
+
+		if( $this->isValid() && empty( $pParamHash['index_interval'] ) ) {
+			$this->mErrors['index_interval'] = 'You must enter an index interval.';
+		} elseif( !empty( $pParamHash['index_interval'] ) && $this->getField( 'index_interval' ) != $pParamHash['index_interval'] ) {
+			$pParamHash['lucene_store']['index_interval'] = $pParamHash['index_interval'];
 		}
 
 		if( !$this->isValid() && empty( $pParamHash['index_path'] ) ) {
