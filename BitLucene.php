@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.3 2006/03/06 04:58:38 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.4 2006/03/10 01:29:09 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -93,9 +93,15 @@ class BitLucene extends BitBase {
 		return( count( $this->mErrors ) == 0 );
 	}
 
+	function getIndexList() {
+		$query = "SELECT lucene_id AS hash_key, index_title FROM `".BIT_DB_PREFIX."lucene_indices` ORDER BY `index_title`";
+		$ret = $this->mDb->getAssoc( $query );
+		return $ret;
+	}
+
 	function getList( &$pListHash ) {
 		$this->prepGetList( $pListHash );
-		$query = "SELECT * FROM `".BIT_DB_PREFIX."lucene_indices` ORDER BY `index_title`";
+		$query = "SELECT lucene_id AS hash_key, * FROM `".BIT_DB_PREFIX."lucene_indices` ORDER BY `index_title`";
 		$ret = $this->mDb->getAssoc( $query );
 
 		$keys = array_keys( $ret );
@@ -121,6 +127,7 @@ class BitLucene extends BitBase {
 
 	function search( $pQuery ) {
 		global $gBitSystem;
+		$this->mResults = array();
 		if( file_exists( $this->getField( 'index_path' ) ) ) {
 			// do we have & want php-clucene ?
 			if( class_exists( 'IndexSearcher' ) && $gBitSystem->isFeatureActive( 'lucene_php-clucene' ) ) {
@@ -140,8 +147,7 @@ class BitLucene extends BitBase {
 
 				java_require( LUCENE_PKG_PATH.'indexer/lucene.jar;'.LUCENE_PKG_PATH.'indexer/wddx.jar;'.LUCENE_PKG_PATH.'indexer' );
 				$obj = new Java("org.bitweaver.lucene.SearchEngine");
-				$result = $obj->search( $this->getField('index_path'),"OR",$query);
-
+				$result = $obj->search( $this->getField('index_path'), "OR", $query, $this->getField( 'index_fields' ) );
 				$rs = wddx_deserialize((string)$result);
 				$meta = $rs["meta_data"];
 				$this->mHits = $meta['hits'];
@@ -157,10 +163,11 @@ class BitLucene extends BitBase {
 		return count( $this->mResults );
 	}
 
-	function getResult( $pRow, $pField ) {
-		$ret = NULL;
+	function getResult( $pRow, $pField, $pDefault=NULL ) {
 		if( !empty( $this->mResults[$pRow][$pField] ) ) {
 			$ret = $this->mResults[$pRow][$pField];
+		} else {
+			$ret = $pDefault;
 		}
 		return( $ret );
 	}

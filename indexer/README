@@ -7,7 +7,7 @@ yum install postgresql-jdbc
 
 # You can use the .class file that is the package, however, if you want to compile the indexer, you need to set your classpath.
 cd /path/to/bitweaver/lucene/indexer
-export CLASSPATH=`pwd`:`pwd`/lucene-1.4.3.jar:/usr/share/java/postgresql-jdbc3.jar
+export CLASSPATH=`pwd`:`pwd`/lucene.jar:`pwd`/wddx.jar:/usr/share/java/postgresql-jdbc3.jar
 # Then compile
 javac org/bitweaver/lucene/IndexEngine.java
 

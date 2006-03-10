@@ -11,10 +11,15 @@
 		{form legend="Search"}
 			<input type="hidden" name="highlight" value="{$smarty.request.search_phrase|escape:html}" />
 
+
 			<div class="row">
-				{formlabel label="Search term" for="search_phrase"}
+				{formlabel label="Search for" for="search_phrase"}
 				{forminput}
 					<input size="35" type="text" name="search_phrase" id="search_phrase" value="{$smarty.request.search_phrase}" />
+					&nbsp;{tr}in{/tr}&nbsp; {if $searchIndices}
+					{html_options name='search_index' selected=$smarty.request.search_index options=$searchIndices}
+{/if}
+
 					{formhelp note=""}
 				{/forminput}
 			</div>
@@ -28,16 +33,9 @@
 			<p>Number of results: {$searchHits}</p>
 
 			<ul class="data">
+				{assign var=resultFile value=$gLucene->getField('result_template','bitpackage:lucene/lucene_result_inc.tpl')}
 				{section loop=$gLucene->mHits name=ix}
-					<li class="item {cycle values="odd,even"}">
-						<a href="{$smarty.const.BIT_ROOT_URL}index.php?content_id={$gLucene->getResult($smarty.section.ix.index,'content_id')}&amp;highlight={$smarty.request.highlight|escape:"url"}">{$gLucene->getResult($smarty.section.ix.index,'title')}</a>
-						<p>
-							{$gLucene->getResult($smarty.section.ix.index,'data')|escape|truncate:500}
-							<br />
-							{assign var=contentTypeGuid value=$gLucene->getResult($smarty.section.ix.index,'content_type_guid')}
-							<small>{$gLibertySystem->mContentTypes.$contentTypeGuid.content_description} &nbsp;&bull;&nbsp; {tr}Relevance{/tr}: {$gLucene->getResult($smarty.section.ix.index,'score')*100|round:0}</small>
-						</p>
-					</li>
+					{include file=$resultFile resultNum=$smarty.section.ix.index}
 				{/section}
 			</ul>
 		{/if}

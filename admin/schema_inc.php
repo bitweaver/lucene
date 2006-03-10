@@ -10,7 +10,8 @@ $tables = array(
 	index_path C(250),
 	index_interval I4 NOTNULL DEFAULT '86400',
 	last_indexed I8 NOTNULL DEFALT '0',
-	next_index I8 NOTNULL DEFALT '0'
+	next_index I8 NOTNULL DEFALT '0',
+	result_template C(255)
 ",
 
 'lucene_queries' => "

@@ -68,26 +68,30 @@ public class IndexEngine {
 				fields[i-1] = rsmd.getColumnName(i);
 			}
 			while (rs.next()) {
-				if (count == interval) {
-					java.lang.Thread.sleep(timeout);
-					count = 0;
-				} else {
-					count++;
-				}
-
-				System.out.println("Indexing: " + rs.getString(1) + ": " + rs.getString(2));
-
-				Document d = new Document();
-
-				for( int i = 0; i < fields.length; i++ ) {
-					// adding our columns to our Lucene Document object
-					if( rs.getString(fields[i]) != null ) {
-						d.add(Field.Text(fields[i], rs.getString(fields[i])));
+				try {
+					if (count == interval) {
+						java.lang.Thread.sleep(timeout);
+						count = 0;
+					} else {
+						count++;
 					}
-				}
 
-				// adding our document object instance to our writer
-				writer.addDocument(d);
+					System.out.println("Indexing: " + rs.getString(1) + ": " + rs.getString(2));
+
+					Document d = new Document();
+
+					for( int i = 0; i < fields.length; i++ ) {
+						// adding our columns to our Lucene Document object
+						if( rs.getString(fields[i]) != null ) {
+								d.add(Field.Text(fields[i], rs.getString(fields[i])));
+						}
+					}
+
+					// adding our document object instance to our writer
+					writer.addDocument(d);
+				} catch( Exception e ) {
+					System.out.println( "ERROR: " + rs.getString(1) + " - " + e );
+				}
 			}
 
 			writer.close();

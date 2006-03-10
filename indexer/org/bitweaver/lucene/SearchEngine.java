@@ -26,17 +26,17 @@ public class SearchEngine {
 	public static void main(String[] args) throws Exception {
 		try {
 			SearchEngine searcher = new SearchEngine();
-			String results = searcher.search( args[0], args[1], args[2] );
+			String results = searcher.search( args[0], args[1], args[2], args[3] );
 			System.out.println( "Search complete\n" + results );
 		} catch( ArrayIndexOutOfBoundsException e ) {
-			System.out.println("Usage: javac org.bitweaver.SearchEngine </path/to/index> <matchType> <search string>");
+			System.out.println("Usage: javac org.bitweaver.SearchEngine </path/to/index> <matchType> <search string> <comma delimited list of search fields>");
 		}
 	}
 
 
 	public SearchEngine() {}
 
-	public String search (String index, String matchType, String queryString)
+	public String search (String index, String matchType, String queryString, String queryFields)
 		throws Exception
 	{
 		try {
@@ -52,8 +52,13 @@ public class SearchEngine {
 			Analyzer analyzer = new StopAnalyzer();
 
 			StringBuffer qStr = new StringBuffer();
-			qStr.append("title:\"" + queryString.trim() + "\" "+matchType+" ");
-			qStr.append("data:\"" + queryString.trim() + "\" ");
+			String[] fields = queryFields.split( "," );
+			for( int i = 0; i < fields.length; i++ ) {
+				qStr.append( fields[i].trim()+":\"" + queryString.trim() + "\" " );
+				if( i < fields.length - 1 ) {
+					qStr.append(matchType+" ");
+				}
+			}
 
 			query = QueryParser.parse(qStr.toString(), "title", analyzer);
 			hits = searcher.search(query);
@@ -78,8 +83,12 @@ public class SearchEngine {
 					score = new Float(hits.score(i)).toString();
 
 					row.put("score", score);
-					row.put("title", doc.get("title"));
-					row.put("data", doc.get("data"));
+					for( int j = 0; j < fields.length; j++ ) {
+						String docValue = doc.get(fields[j]);
+						if( docValue != null ) {
+							row.put(fields[j], docValue);
+						}
+					}
 					rows.addElement(row);
 				}
 				results.put("rows", rows);
