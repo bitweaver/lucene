@@ -34,7 +34,7 @@
 
 			<ul class="data">
 				{assign var=resultFile value=$gLucene->getField('result_template','bitpackage:lucene/lucene_result_inc.tpl')}
-				{section loop=$gLucene->mResults name=ix}
+				{section loop=$gLucene->getResultCount() name=ix}
 					{include file=$resultFile resultNum=$smarty.section.ix.index}
 				{/section}
 			</ul>

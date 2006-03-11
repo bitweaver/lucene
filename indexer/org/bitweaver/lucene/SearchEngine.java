@@ -1,6 +1,6 @@
 package org.bitweaver.lucene;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Vector;
 
 
@@ -13,8 +13,6 @@ import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 
-import com.allaire.wddx.WddxSerializer;
-
 /**
  * @author Dave Palmer <dave@engineworks.org>
  */
@@ -26,7 +24,7 @@ public class SearchEngine {
 	public static void main(String[] args) throws Exception {
 		try {
 			SearchEngine searcher = new SearchEngine();
-			String results = searcher.search( args[0], args[1], args[2], args[3] );
+			HashMap results = searcher.search( args[0], args[1], args[2], args[3] );
 			System.out.println( "Search complete\n" + results );
 		} catch( ArrayIndexOutOfBoundsException e ) {
 			System.out.println("Usage: javac org.bitweaver.SearchEngine </path/to/index> <matchType> <search string> <comma delimited list of search fields>");
@@ -36,7 +34,7 @@ public class SearchEngine {
 
 	public SearchEngine() {}
 
-	public String search (String index, String matchType, String queryString, String queryFields)
+	public HashMap search (String index, String matchType, String queryString, String queryFields)
 		throws Exception
 	{
 		try {
@@ -63,13 +61,14 @@ public class SearchEngine {
 			query = QueryParser.parse(qStr.toString(), "title", analyzer);
 			hits = searcher.search(query);
 
+			HashMap results = new HashMap();
+
 			int count = hits.length();
 			if (count == 0) {
-				return "<wddxPacket version='1.0'><header/><data><string>No matches found for: "+queryString+"</string></data></wddxPacket>";
+				return results;
 			} else {
 
-				Hashtable results = new Hashtable();
-				Hashtable metaData = new Hashtable();
+				HashMap metaData = new HashMap();
 				metaData.put("hits", new Integer(count).toString());
 				metaData.put("query", queryString);
 
@@ -78,7 +77,7 @@ public class SearchEngine {
 				for (int i = 0; i < count; i++) {
 					Document doc = hits.doc(i);
 
-					Hashtable row = new Hashtable();
+					HashMap row = new HashMap();
 					String score = "";
 					score = new Float(hits.score(i)).toString();
 
@@ -92,10 +91,10 @@ public class SearchEngine {
 					rows.addElement(row);
 				}
 				results.put("rows", rows);
-				WddxSerializer ws = new WddxSerializer();
-				java.io.StringWriter sw = new java.io.StringWriter();
-				ws.serialize(results, sw);
-				return sw.toString();
+//				WddxSerializer ws = new WddxSerializer();
+//				java.io.StringWriter sw = new java.io.StringWriter();
+//				ws.serialize(results, sw);
+				return results;
 			}
 		}
 		catch (Exception ex){

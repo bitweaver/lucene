@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.1 2006/03/11 06:56:57 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.2 2006/03/11 19:09:48 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -33,21 +33,25 @@ class BitJavaLucene extends BitLucene {
 			java_require( LUCENE_PKG_PATH.'indexer/lucene.jar;'.LUCENE_PKG_PATH.'indexer/wddx.jar;'.LUCENE_PKG_PATH.'indexer' );
 			$obj = new Java("org.bitweaver.lucene.SearchEngine");
 			$result = $obj->search( $this->getField('index_path'), "OR", $query, $this->getField( 'index_fields' ) );
-			$rs = wddx_deserialize( (string)$result );
-			$meta = $rs["meta_data"];
-			$this->mHits = $meta['hits'];
-			if( !empty( $rs["rows"] ) ) {
-				$this->mResults = $rs['rows'];
+
+			if( $meta = $result->get( 'meta_data' ) ) {
+				$this->mHits = (string)$meta->get( 'hits' );
+			} else {
+				$this->mHits = 0;
 			}
+			$this->mResults = $result->get( 'rows' );
 		}
 		return count( $this->mResults );
 	}
 
 	function getResult( $pRow, $pField, $pDefault=NULL ) {
-		if( !empty( $this->mResults[$pRow][$pField] ) ) {
-			$ret = $this->mResults[$pRow][$pField];
-		} else {
-			$ret = $pDefault;
+		$ret = $pDefault;
+		if( !empty( $this->mResults ) ) {
+			if( $hash = $this->mResults->elementAt( $pRow ) ) {
+				if( $f = (string)$hash->get( $pField ) ) {
+					$ret = $f;
+				}
+			}
 		}
 		return( $ret );
 	}
