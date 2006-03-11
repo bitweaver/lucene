@@ -29,12 +29,12 @@
 			</div>
 		{/form}
 
-		{if $gLucene->mHits}
-			<p>Number of results: {$searchHits}</p>
+		{if $gLucene->getResultCount()}
+			<p>Number of results: {$gLucene->getResultCount()}</p>
 
 			<ul class="data">
 				{assign var=resultFile value=$gLucene->getField('result_template','bitpackage:lucene/lucene_result_inc.tpl')}
-				{section loop=$gLucene->mHits name=ix}
+				{section loop=$gLucene->mResults name=ix}
 					{include file=$resultFile resultNum=$smarty.section.ix.index}
 				{/section}
 			</ul>

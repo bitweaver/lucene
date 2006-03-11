@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.4 2006/03/10 01:29:09 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.5 2006/03/11 06:56:57 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -121,55 +121,24 @@ class BitLucene extends BitBase {
 		}
 	}
 
+	function verifySearchIndex() {
+		$ret = FALSE;
+		if( $this->isValid() ) {
+			if( file_exists( $this->getField( 'index_path' ) ) ) {
+				$ret = TRUE;
+			} else {
+				$this->mError = 'The search index is unavailable';
+			}
+		}
+		return $ret;
+	}
+
 	function isValid() {
 		return( is_numeric( $this->mLuceneId ) );
 	}
 
-	function search( $pQuery ) {
-		global $gBitSystem;
-		$this->mResults = array();
-		if( file_exists( $this->getField( 'index_path' ) ) ) {
-			// do we have & want php-clucene ?
-			if( class_exists( 'IndexSearcher' ) && $gBitSystem->isFeatureActive( 'lucene_php-clucene' ) ) {
-				/* Creation of an IndexSearcher instance */
-				try {
-					$searcher = new IndexSearcher( $indexDir, $field );
-					$query = $_REQUEST['search_phrase'];
-					$hits = $searcher->search( $query );
-					$this->mHits = $hits->length();
-					$gBitSmarty->assign_by_ref( 'searchResults', $hits );
-				} catch (Exception $e) {
-					$this->mError = 'The search index is unavailable: '.$e->getMessage();
-				}
-			} elseif( class_exists( 'Java' ) ) {
-				// use java wddx
-				$query = $_POST["search_phrase"];
-
-				java_require( LUCENE_PKG_PATH.'indexer/lucene.jar;'.LUCENE_PKG_PATH.'indexer/wddx.jar;'.LUCENE_PKG_PATH.'indexer' );
-				$obj = new Java("org.bitweaver.lucene.SearchEngine");
-				$result = $obj->search( $this->getField('index_path'), "OR", $query, $this->getField( 'index_fields' ) );
-				$rs = wddx_deserialize((string)$result);
-				$meta = $rs["meta_data"];
-				$this->mHits = $meta['hits'];
-				if( !empty( $rs["rows"] ) ) {
-					$this->mResults = $rs['rows'];
-				}
-			} else {
-				$this->mError = 'The search engine is unavailable';
-			}
-		} else {
-			$this->mError = 'The search index is unavailable';
-		}
-		return count( $this->mResults );
-	}
-
-	function getResult( $pRow, $pField, $pDefault=NULL ) {
-		if( !empty( $this->mResults[$pRow][$pField] ) ) {
-			$ret = $this->mResults[$pRow][$pField];
-		} else {
-			$ret = $pDefault;
-		}
-		return( $ret );
+	function search() {
+// PURE VIRTUAL BASE CLASS
 	}
 
 
