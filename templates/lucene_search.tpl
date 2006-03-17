@@ -9,9 +9,6 @@
 		{formfeedback hash=$feedback}
 
 		{form legend="Search"}
-			<input type="hidden" name="highlight" value="{$smarty.request.search_phrase|escape:html}" />
-
-
 			<div class="row">
 				{formlabel label="Search for" for="search_phrase"}
 				{forminput}

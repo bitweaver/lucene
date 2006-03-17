@@ -37,6 +37,12 @@ public class SearchEngine {
 	public HashMap search (String index, String matchType, String queryString, String queryFields)
 		throws Exception
 	{
+		return this.search( index, matchType, queryString, queryFields, 1, 200);
+	}
+
+	public HashMap search (String index, String matchType, String queryString, String queryFields, int startScore, int maxRows)
+		throws Exception
+	{
 		try {
 			if (index == null || index.equals(""))
 				throw new Exception ("Index cannot be null or empty!");
@@ -63,7 +69,7 @@ public class SearchEngine {
 
 			HashMap results = new HashMap();
 
-			int count = hits.length();
+			int count = hits.length() < maxRows ? hits.length() : maxRows;
 			if (count == 0) {
 				return results;
 			} else {
