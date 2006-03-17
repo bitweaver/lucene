@@ -69,7 +69,7 @@ public class SearchEngine {
 
 			HashMap results = new HashMap();
 
-			int count = hits.length() < maxRows ? hits.length() : maxRows;
+			int count = hits.length() < (maxRows * 1.2) ? hits.length() : maxRows;
 			if (count == 0) {
 				return results;
 			} else {
