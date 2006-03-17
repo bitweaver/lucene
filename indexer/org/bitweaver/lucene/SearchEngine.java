@@ -58,7 +58,7 @@ public class SearchEngine {
 			StringBuffer qStr = new StringBuffer();
 			String[] fields = queryFields.split( "," );
 			for( int i = 0; i < fields.length; i++ ) {
-				qStr.append( fields[i].trim()+":\"" + queryString.trim() + "\" " );
+				qStr.append( fields[i].trim()+":(" + queryString.trim() + ") " );
 				if( i < fields.length - 1 ) {
 					qStr.append(matchType+" ");
 				}

@@ -52,7 +52,8 @@ $gBitInstaller->registerSchemaSequences( LUCENE_PKG_NAME, $sequences );
 
 // ### Default UserPermissions
 $gBitInstaller->registerUserPermissions( LUCENE_PKG_NAME, array(
-	array('bit_p_lucene_admin', 'Can administer the lucene search engine', 'admin', LUCENE_PKG_NAME)
+	array('bit_p_lucene_admin', 'Can administer the lucene search engine', 'admin', LUCENE_PKG_NAME),
+	array('bit_p_lucene_search', 'Can use the search engine', 'basic', LUCENE_PKG_NAME),
 ) );
 
 
