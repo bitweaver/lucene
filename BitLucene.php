@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.5 2006/03/11 06:56:57 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.6 2006/03/18 05:32:23 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -80,7 +80,7 @@ class BitLucene extends BitBase {
 
 	function storeQueries( &$pParamHash ) {
 		if( $this->isValid() ) {
-			$query = "DELETE FROM  `".BIT_DB_PREFIX."lucene_queries` WHERE `lucene_id`=?";
+			$query = "DELETE FROM `".BIT_DB_PREFIX."lucene_queries` WHERE `lucene_id`=?";
 			$this->mDb->query( $query, array( $this->mLuceneId ) );
 			if( !empty( $pParamHash['lucene_query'] ) ) {
 				foreach( $pParamHash['lucene_query'] as $luceneQuery ) {
@@ -91,6 +91,24 @@ class BitLucene extends BitBase {
 			}
 		}
 		return( count( $this->mErrors ) == 0 );
+	}
+
+	function storeSearchHistory( $pPhrase ) {
+		if( strlen( $pPhrase ) > 255 ) {
+			$pPhrase = substr( $pPhrase, 0, 255 );
+		}
+		if( $this->isValid() ) {
+			$storeHash['last_searched'] = time();
+			$storeHash['search_count'] = $this->mDb->getOne( "SELECT `search_count` FROM `".BIT_DB_PREFIX."lucene_search_history` WHERE `lucene_id`=? AND `search_phrase`=?", array( $this->mLuceneId, $pPhrase ) ) + 1;
+			$storeHash['last_searched_ip'] = $_SERVER['REMOTE_ADDR'];
+			if( $storeHash['search_count'] > 1 ) {
+				$this->mDb->associateUpdate( BIT_DB_PREFIX."lucene_search_history", $storeHash, array( 'lucene_id' => $this->mLuceneId, 'search_phrase' => $pPhrase ) );
+			} else {
+				$storeHash['lucene_id'] = $this->mLuceneId;
+				$storeHash['search_phrase'] = $pPhrase;
+				$this->mDb->associateInsert( BIT_DB_PREFIX."lucene_search_history", $storeHash );
+			}
+		}
 	}
 
 	function getIndexList() {
@@ -137,8 +155,8 @@ class BitLucene extends BitBase {
 		return( is_numeric( $this->mLuceneId ) );
 	}
 
-	function search() {
-// PURE VIRTUAL BASE CLASS
+	function search( $pQuery ) {
+		$this->storeSearchHistory( $pQuery );
 	}
 
 

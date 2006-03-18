@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitCLucene.php,v 1.1 2006/03/11 06:56:57 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitCLucene.php,v 1.2 2006/03/18 05:32:23 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -26,6 +26,7 @@ class BitCLucene extends BitLucene {
 		global $gBitSystem;
 		$this->mResults = array();
 		if( $this->verifySearchIndex() ) {
+			parent::search( $pQuery );
 			// do we have & want php-clucene ?
 			/* Creation of an IndexSearcher instance */
 			try {

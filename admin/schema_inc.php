@@ -19,6 +19,16 @@ $tables = array(
 	lucene_query X NOTNULL,
 	lucene_index_columns X NOTNULL
 	CONSTRAINT	', CONSTRAINT `lucene_index_queries_ref` FOREIGN KEY (`lucene_id`) REFERENCES `".BIT_DB_PREFIX."lucene_indices` (`lucene_id`)'
+",
+
+'lucene_search_history' => "
+	lucene_id I4 NOTNULL PRIMARY,
+	search_phrase C(255) NOTNULL PRIMARY,
+	search_count I4 NOTNULL DEFAULT 1,
+	last_searched I8 NOTNULL,
+	last_searched_ip C(16),
+	is_blacklisted C(1)
+	CONSTRAINT	', CONSTRAINT `lucene_searches_indices_ref` FOREIGN KEY (`lucene_id`) REFERENCES `".BIT_DB_PREFIX."lucene_indices` (`lucene_id`)'
 "
 
 );
@@ -39,6 +49,8 @@ $gBitInstaller->registerPackageInfo( LUCENE_PKG_NAME, array(
 
 // ### Indexes
 $indices = array (
+	'lucene_history_phrase_idx' => array( 'table' => 'lucene_search_history', 'cols' => 'search_phrase', 'opts' => '' ),
+	'lucene_history_lucene_idx' => array( 'table' => 'lucene_indices', 'cols' => 'lucene_id', 'opts' => '' ),
 );
 // TODO - SPIDERR - following seems to cause time _decrease_ cause bigint on postgres. need more investigation
 //	'blog_posts_created_idx' => array( 'table' => 'blog_posts', 'cols' => 'created', 'opts' => NULL ),
