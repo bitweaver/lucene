@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.6 2006/03/18 05:32:23 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.7 2006/03/18 06:07:29 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -53,6 +53,12 @@ class BitLucene extends BitBase {
 			$this->mErrors['index_interval'] = 'You must enter an index interval.';
 		} elseif( !empty( $pParamHash['index_interval'] ) && $this->getField( 'index_interval' ) != $pParamHash['index_interval'] ) {
 			$pParamHash['lucene_store']['index_interval'] = $pParamHash['index_interval'];
+		}
+
+		if( !empty( $pParamHash['sort_order'] ) && is_numeric( $pParamHash['sort_order'] ) ) {
+			$pParamHash['lucene_store']['sort_order'] = $pParamHash['sort_order'];
+		} else {
+			$pParamHash['lucene_store']['sort_order'] = NULL;
 		}
 
 		if( !$this->isValid() && empty( $pParamHash['index_path'] ) ) {
@@ -111,15 +117,9 @@ class BitLucene extends BitBase {
 		}
 	}
 
-	function getIndexList() {
-		$query = "SELECT lucene_id AS hash_key, index_title FROM `".BIT_DB_PREFIX."lucene_indices` ORDER BY `index_title`";
-		$ret = $this->mDb->getAssoc( $query );
-		return $ret;
-	}
-
 	function getList( &$pListHash ) {
 		$this->prepGetList( $pListHash );
-		$query = "SELECT lucene_id AS hash_key, * FROM `".BIT_DB_PREFIX."lucene_indices` ORDER BY `index_title`";
+		$query = "SELECT lucene_id AS hash_key, * FROM `".BIT_DB_PREFIX."lucene_indices` ORDER BY `sort_order`,`index_title`";
 		$ret = $this->mDb->getAssoc( $query );
 
 		$keys = array_keys( $ret );

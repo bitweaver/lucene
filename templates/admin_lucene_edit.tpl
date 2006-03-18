@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_lucene/templates/admin_lucene_edit.tpl,v 1.4 2006/03/06 04:58:39 spiderr Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_lucene/templates/admin_lucene_edit.tpl,v 1.5 2006/03/18 06:07:30 spiderr Exp $ *}
 {strip}
 
 <div class="floaticon">
@@ -47,6 +47,14 @@
 						{forminput}
 							<input type="text" name="index_interval" id="indexinterval" size="6" maxlength="10" value="{$gLucene->getField('index_interval',86400)}" />
 							{formhelp note="Number of seconds that must pass before the index is recreated."}
+						{/forminput}
+					</div>
+					<div class="row">
+						{formfeedback error=$errors.sort_order}
+						{formlabel label="Sort Order" for="sortorder"}
+						{forminput}
+							<input type="text" name="sort_order" id="indexinterval" size="6" maxlength="10" value="{$gLucene->getField('sort_order')}" />
+							{formhelp note="Order index is listed in search options."}
 						{/forminput}
 					</div>
 
