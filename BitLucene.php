@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.7 2006/03/18 06:07:29 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.8 2006/03/18 06:13:20 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -29,7 +29,7 @@ class BitLucene extends BitBase {
 	function load() {
 		$this->mInfo = array();
 		if( $this->isValid() ) {
-			$rows = $this->mDb->getAll( "SELECT * FROM `".BIT_DB_PREFIX."lucene_indices` WHERE `lucene_id`=?", array( $this->mLuceneId ) );
+			$rows = $this->mDb->getAll( "SELECT * FROM `".BIT_DB_PREFIX."lucene_indexes` WHERE `lucene_id`=?", array( $this->mLuceneId ) );
 			$this->mInfo = $rows[0];
 			$this->mQueries = $this->mDb->getCol( "SELECT `lucene_query` FROM `".BIT_DB_PREFIX."lucene_queries` WHERE `lucene_id`=? ORDER BY `lucene_query`", array( $this->mLuceneId ) );
 		}
@@ -73,10 +73,10 @@ class BitLucene extends BitBase {
 	function store( &$pParamHash ) {
 		if( $this->verify( $pParamHash ) ) {
 			if( $this->isValid() ) {
-				$this->mDb->associateUpdate( 'lucene_indices', $pParamHash['lucene_store'], array( 'lucene_id' => $this->mLuceneId ) );
+				$this->mDb->associateUpdate( 'lucene_indexes', $pParamHash['lucene_store'], array( 'lucene_id' => $this->mLuceneId ) );
 			} else {
 				$pParamHash['lucene_store']['lucene_id'] = $this->mDb->GenID( 'lucene_id_seq' );
-				$this->mDb->associateInsert( 'lucene_indices', $pParamHash['lucene_store'] );
+				$this->mDb->associateInsert( 'lucene_indexes', $pParamHash['lucene_store'] );
 				$this->mLuceneId = $pParamHash['lucene_store']['lucene_id'];
 			}
 			$this->storeQueries( $pParamHash );
@@ -117,9 +117,15 @@ class BitLucene extends BitBase {
 		}
 	}
 
+	function getIndexList() {
+		$this->prepGetList( $pListHash );
+		$query = "SELECT `lucene_id`, `index_title` FROM `".BIT_DB_PREFIX."lucene_indexes` ORDER BY `sort_order`,`index_title`";
+		return $this->mDb->getAssoc( $query );
+	}
+
 	function getList( &$pListHash ) {
 		$this->prepGetList( $pListHash );
-		$query = "SELECT lucene_id AS hash_key, * FROM `".BIT_DB_PREFIX."lucene_indices` ORDER BY `sort_order`,`index_title`";
+		$query = "SELECT lucene_id AS hash_key, * FROM `".BIT_DB_PREFIX."lucene_indexes` ORDER BY `sort_order`,`index_title`";
 		$ret = $this->mDb->getAssoc( $query );
 
 		$keys = array_keys( $ret );
@@ -134,7 +140,7 @@ class BitLucene extends BitBase {
 		if( $this->isValid() ) {
 			$query = "DELETE FROM  `".BIT_DB_PREFIX."lucene_queries` WHERE `lucene_id`=?";
 			$this->mDb->query( $query, array( $this->mLuceneId ) );
-			$query = "DELETE FROM  `".BIT_DB_PREFIX."lucene_indices` WHERE `lucene_id`=?";
+			$query = "DELETE FROM  `".BIT_DB_PREFIX."lucene_indexes` WHERE `lucene_id`=?";
 			$this->mDb->query( $query, array( $this->mLuceneId ) );
 		}
 	}
