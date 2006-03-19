@@ -9,8 +9,8 @@ $tables = array(
 	index_fields X NOTNULL,
 	index_path C(250),
 	index_interval I4 NOTNULL DEFAULT '86400',
-	last_indexed I8 NOTNULL DEFALT '0',
-	next_index I8 NOTNULL DEFALT '0',
+	last_indexed I8 NOTNULL DEFAULT '0',
+	next_index I8 NOTNULL DEFAULT '0',
 	sort_order I4,
 	result_template C(255)
 ",
