@@ -8,15 +8,12 @@
 
 		{formfeedback hash=$feedback}
 
-		{form legend="Search"}
+		{form legend="Search" method="get"}
 			<div class="row">
 				{formlabel label="Search for" for="search_phrase"}
 				{forminput}
 					<input size="35" type="text" name="search_phrase" id="search_phrase" value="{$smarty.request.search_phrase}" />
-					&nbsp;{tr}in{/tr}&nbsp; {if $searchIndices}
-					{html_options name='search_index' selected=$smarty.request.search_index options=$searchIndices}
-{/if}
-
+					{if $searchIndices}&nbsp; {tr}in{/tr}&nbsp; {html_options name='search_index' selected=$smarty.request.search_index options=$searchIndices}{/if}
 					{formhelp note=""}
 				{/forminput}
 			</div>
