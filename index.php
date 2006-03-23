@@ -14,8 +14,8 @@ require_once( LUCENE_PKG_PATH.'lookup_lucene_inc.php' );
 
 $gBitSystem->verifyPackage( 'lucene' );
 
-if (isset ($_POST["search_phrase"])) {
-	if( $gLucene->search( $_POST["search_phrase"] ) ) {
+if (isset ($_REQUEST["search_phrase"])) {
+	if( $gLucene->search( $_REQUEST["search_phrase"] ) ) {
 		$gBitSmarty->assign( 'fieldHash', explode( ',', $gLucene->getField( 'index_fields' ) ) );
 	}
 }

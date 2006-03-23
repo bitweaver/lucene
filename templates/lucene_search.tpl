@@ -8,7 +8,7 @@
 
 		{formfeedback hash=$feedback}
 
-		{form legend="Search" method="get"}
+		{form legend="Search" method="post"}
 			<div class="row">
 				{formlabel label="Search for" for="search_phrase"}
 				{forminput}

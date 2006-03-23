@@ -12,7 +12,7 @@ export CLASSPATH=`pwd`:`pwd`/lucene.jar:/usr/share/java/postgresql-jdbc3.jar
 javac org/bitweaver/lucene/IndexEngine.java
 
 # To run the Indexer execute something like this for postgresl
-java org.bitweaver.lucene.IndexEngine jdbc:postgresql://localhost/bitdb postgres 'tiger' /path/to/bitweaver/temp/lucene/index/
+java org.bitweaver.lucene.IndexEngine jdbc:postgresql://localhost/bitdb pguser 'dbp@ss' 
 
 # Or this for MySQL:
-java org.bitweaver.lucene.IndexEngine jdbc:mysql://localhost/bitdb root 'tiger' /path/to/bitweaver/temp/lucene/index/
+java org.bitweaver.lucene.IndexEngine jdbc:mysql://localhost/bitdb dbuser 'dbp@ss' 
