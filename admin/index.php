@@ -3,7 +3,7 @@
  * Lucene administration page
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/admin/index.php,v 1.2 2006/03/06 00:09:19 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/admin/index.php,v 1.3 2006/04/14 23:00:07 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -55,7 +55,7 @@ if( !empty( $_REQUEST['action'] ) ) {
 	$gBitSmarty->assign_by_ref( 'indexList', $indexList );
 }
 
-$gBitSystem->verifyPermission( 'bit_p_lucene_admin' );
+$gBitSystem->verifyPermission( 'p_lucene_admin' );
 
 $gBitSystem->display( $mid, tra( 'Administer' ).': Lucene' );
 

@@ -1,5 +1,5 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_lucene/admin/admin_lucene_inc.php,v 1.2 2006/03/11 06:56:58 spiderr Exp $
+// $Header: /cvsroot/bitweaver/_bit_lucene/admin/admin_lucene_inc.php,v 1.3 2006/04/14 23:00:07 spiderr Exp $
 // Copyright (c) 2002-2003, Luis Argerich, Garland Foster, Eduardo Polidor, et. al.
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.

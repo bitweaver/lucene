@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitCLucene.php,v 1.2 2006/03/18 05:32:23 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitCLucene.php,v 1.3 2006/04/14 23:00:07 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+

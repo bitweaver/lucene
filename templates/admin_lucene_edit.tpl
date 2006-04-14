@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_lucene/templates/admin_lucene_edit.tpl,v 1.5 2006/03/18 06:07:30 spiderr Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_lucene/templates/admin_lucene_edit.tpl,v 1.6 2006/04/14 23:00:07 spiderr Exp $ *}
 {strip}
 
 <div class="floaticon">
