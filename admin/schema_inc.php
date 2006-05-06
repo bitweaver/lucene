@@ -43,9 +43,6 @@ foreach( array_keys( $tables ) AS $tableName ) {
 $gBitInstaller->registerPackageInfo( LUCENE_PKG_NAME, array(
 	'description' => "A search package utilizing the <a href=\"http://lucene.apache.org\">Lucene search engine</a>.",
 	'license' => '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>',
-	'version' => '0.1',
-	'state' => 'beta',
-	'dependencies' => '',
 ) );
 
 // ### Indexes
