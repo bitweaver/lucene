@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.4 2006/04/14 23:00:07 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.5 2006/07/31 02:32:40 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -26,7 +26,7 @@ class BitJavaLucene extends BitLucene {
 		global $gBitSystem;
 		$this->mResults = array();
 		$this->mHits = 0;
-		if( $this->verifySearchIndex() ) {
+		if( !empty( $pQuery ) && $this->verifySearchIndex() ) {
 			parent::search( $pQuery );
 			// use java wddx
 			$query = $_POST["search_phrase"];

@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitZendLucene.php,v 1.3 2006/03/23 21:29:54 bitweaver Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitZendLucene.php,v 1.4 2006/07/31 02:32:40 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -24,7 +24,7 @@ class BitZendLucene extends BitLucene {
 
 	function search( $pQuery ) {
 		$this->mResults = array();
-		if( $this->verifySearchIndex() ) {
+		if( !empty( $pQuery ) && $this->verifySearchIndex() ) {
 			parent::search( $pQuery );
 			require_zend_file( 'Search/Lucene.php' );
 			$index = new ZSearch( $this->getField( 'index_path' ) );
