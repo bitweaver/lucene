@@ -7,7 +7,12 @@ $registerHash = array(
 $gBitSystem->registerPackage( $registerHash );
 
 if( $gBitSystem->isPackageActive( LUCENE_PKG_NAME ) ) {
-	$gBitSystem->registerAppMenu( LUCENE_PKG_DIR, 'Search', LUCENE_PKG_URL.'index.php', 'bitpackage:lucene/menu_lucene.tpl', LUCENE_PKG_NAME );
+	$menuHash = array(
+		'package_name'  => LUCENE_PKG_NAME,
+		'index_url'     => LUCENE_PKG_URL.'index.php',
+		'menu_template' => 'bitpackage:lucene/menu_lucene.tpl',
+	);
+	$gBitSystem->registerAppMenu( $menuHash );
 }
 
 ?>
