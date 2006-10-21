@@ -39,6 +39,9 @@ public class IndexEngine {
 		String qSql = "SELECT luci.lucene_id, lucene_query, index_path, index_fields FROM " + pDbPrefix + "lucene_indexes luci INNER JOIN " + pDbPrefix + "lucene_queries lucq ON (lucq.lucene_id=luci.lucene_id) WHERE next_index < "+indexTime;
 		PreparedStatement qStmt = conn.prepareStatement(qSql);
 		ResultSet qrs = qStmt.executeQuery();
+		int lastLuceneId = -1;
+		Analyzer analyzer = null;
+		IndexWriter writer = null;
 
 		while (qrs.next()) {
 
@@ -47,11 +50,18 @@ public class IndexEngine {
 			// this is the query we are going to use to populate our index
 			String sql = qrs.getString("lucene_query");
 			String indexPath = qrs.getString("index_path");
+			int luceneId = qrs.getInt("lucene_id");
 
-			Analyzer analyzer = new StandardAnalyzer();
-			IndexWriter writer = new IndexWriter(indexPath,analyzer,true);
+			if( analyzer == null ||  luceneId != lastLuceneId ) {
+				analyzer = new StandardAnalyzer();
+				if( writer != null ) {
+					writer.close();
+				}
+				writer = new IndexWriter(indexPath,analyzer,true);
+			}
+
+			lastLuceneId = luceneId;
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-
 			System.out.println( "Executing query: "+sql );
 			ResultSet rs = pStmt.executeQuery();
 
@@ -94,7 +104,6 @@ public class IndexEngine {
 				}
 			}
 
-			writer.close();
 
 			String uSql = "UPDATE " + pDbPrefix + "lucene_indexes SET next_index=index_interval+" + indexTime + ", last_indexed=" + indexTime + " WHERE lucene_id = " + qrs.getString("lucene_id");
 			PreparedStatement uStmt = conn.prepareStatement(uSql);
