@@ -1,11 +1,13 @@
 {strip}
 {form method="post" ipackage=search ifile="`$smarty.const.LUCENE_PKG_URL`index.php"}
-    <div class="row">
+    <div>
         <input id="fuser" name="search_phrase" size="20" type="text" accesskey="s" value="{tr}search{/tr}" onfocus="this.value=''" />
+	{if $searchIndex}
+        <input name="search_index" type="hidden" value="{$searchIndex}" />
+	{else}
         <br />
         {html_options options=$searchIndexes name="search_index" selected=$smarty.session.search_index  selected=$perms[user].level}
-    </div>
-    <div class="row submit">
+	{/if}
         <input type="submit" name="search" value="{tr}go{/tr}"/>
     </div>
 {/form}
