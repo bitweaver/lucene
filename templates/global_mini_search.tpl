@@ -1,5 +1,5 @@
 {strip}
-{form method="post" ipackage=search ifile="`$smarty.const.LUCENE_PKG_URL`index.php"}
+{form method="post" ipackage="lucene" ifile="`$smarty.const.LUCENE_PKG_URL`index.php"}
     <div>
         <input id="fuser" name="search_phrase" size="20" type="text" accesskey="s" value="{tr}search{/tr}" onfocus="this.value=''" />
 	{if $searchIndex}
