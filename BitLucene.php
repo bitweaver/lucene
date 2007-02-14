@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.9 2006/04/14 23:00:07 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.10 2007/02/14 04:14:55 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -29,8 +29,9 @@ class BitLucene extends BitBase {
 	function load() {
 		$this->mInfo = array();
 		if( $this->isValid() ) {
-			$rows = $this->mDb->getAll( "SELECT * FROM `".BIT_DB_PREFIX."lucene_indexes` WHERE `lucene_id`=?", array( $this->mLuceneId ) );
-			$this->mInfo = $rows[0];
+			if( $rows = $this->mDb->getAll( "SELECT * FROM `".BIT_DB_PREFIX."lucene_indexes` WHERE `lucene_id`=?", array( $this->mLuceneId ) ) ) {
+				$this->mInfo = $rows[0];
+			}
 			$this->mQueries = $this->mDb->getCol( "SELECT `lucene_query` FROM `".BIT_DB_PREFIX."lucene_queries` WHERE `lucene_id`=? ORDER BY `lucene_query`", array( $this->mLuceneId ) );
 		}
 		return( count( $this->mInfo ) );
