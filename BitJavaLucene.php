@@ -3,7 +3,7 @@
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.5 2006/07/31 02:32:40 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.6 2008/03/29 18:36:03 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -31,7 +31,7 @@ class BitJavaLucene extends BitLucene {
 			// use java wddx
 			$query = $_POST["search_phrase"];
 
-			java_require( LUCENE_PKG_PATH.'indexer/lucene.jar;'.LUCENE_PKG_PATH.'indexer/wddx.jar;'.LUCENE_PKG_PATH.'indexer' );
+			java_require( LUCENE_PKG_PATH.'indexer/lucene.jar;'.LUCENE_PKG_PATH.'indexer' );
 			$obj = new Java("org.bitweaver.lucene.SearchEngine");
 			$result = $obj->search( $this->getField('index_path'), "OR", $query, $this->getField( 'index_fields' ) );
 
