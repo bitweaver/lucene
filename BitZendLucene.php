@@ -1,6 +1,6 @@
 <?php
 /**
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitZendLucene.php,v 1.5 2008/06/19 04:44:33 lsces Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitZendLucene.php,v 1.6 2008/06/19 05:16:25 lsces Exp $
  * Lucene class
  *
  * @package  lucene
@@ -18,6 +18,9 @@
 // | Authors: spider <spider@steelsun.com>
 // +----------------------------------------------------------------------+
 
+/**
+ * Initialize
+ */
 require_once( LUCENE_PKG_PATH.'BitLucene.php' );
 
 /**
