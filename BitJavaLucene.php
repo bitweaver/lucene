@@ -1,9 +1,9 @@
 <?php
 /**
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.7 2008/06/19 04:44:33 lsces Exp $
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.6 2008/03/29 18:36:03 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -20,6 +20,11 @@
 
 require_once( LUCENE_PKG_PATH.'BitLucene.php' );
 
+/**
+ * JavaLucene class
+ *
+ * @package  lucene
+ */
 class BitJavaLucene extends BitLucene {
 
 	function search( $pQuery ) {

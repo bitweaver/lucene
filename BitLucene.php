@@ -1,9 +1,9 @@
 <?php
 /**
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.11 2008/06/19 04:44:33 lsces Exp $
  * Lucene class
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.10 2007/02/14 04:14:55 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -18,6 +18,11 @@
 // | Authors: spider <spider@steelsun.com>
 // +----------------------------------------------------------------------+
 
+/**
+ * Lucene class
+ *
+ * @package  lucene
+ */
 class BitLucene extends BitBase {
 	var $mLuceneId;
 
