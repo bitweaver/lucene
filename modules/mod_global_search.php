@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_lucene/modules/mod_global_search.php,v 1.5 2008/06/19 05:16:25 lsces Exp $
+ * $Header: /cvsroot/bitweaver/_bit_lucene/modules/mod_global_search.php,v 1.6 2008/06/19 05:17:50 lsces Exp $
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,10 +8,14 @@
  * All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
  *
- * $Id: mod_global_search.php,v 1.5 2008/06/19 05:16:25 lsces Exp $
+ * $Id: mod_global_search.php,v 1.6 2008/06/19 05:17:50 lsces Exp $
  * @author  Luis Argerich (lrargerich@yahoo.com)
  * @package lucene
  * @subpackage modules
+ */
+
+/**
+ * Initialize
  */
 global $gLibertySystem, $gLucene, $module_params;
 
