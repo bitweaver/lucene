@@ -22,6 +22,6 @@ if (isset ($_REQUEST["search_phrase"])) {
 
 $gBitSmarty->assign( 'searchIndices', $gLucene->getIndexList() );
 
-$gBitSystem->display( 'bitpackage:lucene/lucene_search.tpl' );
+$gBitSystem->display( 'bitpackage:lucene/lucene_search.tpl' , NULL, array( 'display_mode' => 'display' ));
 
 ?>

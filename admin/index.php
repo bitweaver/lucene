@@ -3,7 +3,7 @@
  * Lucene administration page
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/admin/index.php,v 1.3 2006/04/14 23:00:07 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/admin/index.php,v 1.4 2008/06/25 22:21:13 spiderr Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -57,6 +57,6 @@ if( !empty( $_REQUEST['action'] ) ) {
 
 $gBitSystem->verifyPermission( 'p_lucene_admin' );
 
-$gBitSystem->display( $mid, tra( 'Administer' ).': Lucene' );
+$gBitSystem->display( $mid, tra( 'Administer' ).': Lucene' , array( 'display_mode' => 'admin' ));
 
 ?>
