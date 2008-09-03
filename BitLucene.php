@@ -1,6 +1,6 @@
 <?php
 /**
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.11 2008/06/19 04:44:33 lsces Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitLucene.php,v 1.12 2008/09/03 02:27:15 spiderr Exp $
  * Lucene class
  *
  * @package  lucene
@@ -131,7 +131,7 @@ class BitLucene extends BitBase {
 
 	function getList( &$pListHash ) {
 		$this->prepGetList( $pListHash );
-		$query = "SELECT lucene_id AS hash_key, * FROM `".BIT_DB_PREFIX."lucene_indexes` ORDER BY `sort_order`,`index_title`";
+		$query = "SELECT lucene_id AS hash_key, lui.* FROM `".BIT_DB_PREFIX."lucene_indexes` lui ORDER BY `sort_order`,`index_title`";
 		$ret = $this->mDb->getAssoc( $query );
 
 		$keys = array_keys( $ret );
