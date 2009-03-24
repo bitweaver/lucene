@@ -27,7 +27,7 @@ $tables = array(
 	search_phrase C(255) NOTNULL PRIMARY,
 	search_count I4 NOTNULL DEFAULT 1,
 	last_searched I8 NOTNULL,
-	last_searched_ip C(16),
+	last_searched_ip C(39),
 	is_blacklisted C(1)
 	CONSTRAINT	', CONSTRAINT `lucene_searches_indexes_ref` FOREIGN KEY (`lucene_id`) REFERENCES `".BIT_DB_PREFIX."lucene_indexes` (`lucene_id`)'
 "
