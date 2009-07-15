@@ -1,6 +1,6 @@
 <?php
 /**
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.8 2008/06/19 05:16:25 lsces Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.9 2009/07/15 22:05:10 spiderr Exp $
  * Lucene class
  *
  * @package  lucene
@@ -37,7 +37,7 @@ class BitJavaLucene extends BitLucene {
 		if( !empty( $pQuery ) && $this->verifySearchIndex() ) {
 			parent::search( $pQuery );
 			// use java wddx
-			$query = $_POST["search_phrase"];
+			$query = $pQuery;
 
 			java_require( LUCENE_PKG_PATH.'indexer/lucene.jar;'.LUCENE_PKG_PATH.'indexer' );
 			$obj = new Java("org.bitweaver.lucene.SearchEngine");
