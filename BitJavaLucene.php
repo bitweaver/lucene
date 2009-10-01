@@ -1,6 +1,6 @@
 <?php
 /**
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.9 2009/07/15 22:05:10 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitJavaLucene.php,v 1.10 2009/10/01 13:45:43 wjames5 Exp $
  * Lucene class
  *
  * @package  lucene
@@ -10,7 +10,7 @@
 // | Copyright (c) 2006, bitweaver.org
 // +----------------------------------------------------------------------+
 // | All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// | Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
+// | Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details
 // |
 // | For comments, please use phpdocu.sourceforge.net documentation standards!!!
 // | -> see http://phpdocu.sourceforge.net/

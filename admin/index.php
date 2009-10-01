@@ -3,14 +3,14 @@
  * Lucene administration page
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/admin/index.php,v 1.4 2008/06/25 22:21:13 spiderr Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/admin/index.php,v 1.5 2009/10/01 13:45:43 wjames5 Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
 // | Copyright (c) 2006, bitweaver.org
 // +----------------------------------------------------------------------+
 // | All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// | Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details
+// | Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details
 // |
 // | For comments, please use phpdocu.sourceforge.net documentation standards!!!
 // | -> see http://phpdocu.sourceforge.net/
