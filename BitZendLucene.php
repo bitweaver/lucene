@@ -1,6 +1,6 @@
 <?php
 /**
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitZendLucene.php,v 1.7 2009/10/01 13:45:43 wjames5 Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitZendLucene.php,v 1.8 2009/10/01 14:17:01 wjames5 Exp $
  * Lucene class
  *
  * @package  lucene
@@ -9,7 +9,7 @@
 // +----------------------------------------------------------------------+
 // | Copyright (c) 2006, bitweaver.org
 // +----------------------------------------------------------------------+
-// | All Rights Reserved. See copyright.txt for details and a complete list of authors.
+// | All Rights Reserved. See below for details and a complete list of authors.
 // | Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details
 // |
 // | For comments, please use phpdocu.sourceforge.net documentation standards!!!
