@@ -3,7 +3,7 @@
  * Lucene administration page
  *
  * @package  lucene
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/admin/index.php,v 1.6 2009/10/01 14:17:01 wjames5 Exp $
+ * @version  $Header: /cvsroot/bitweaver/_bit_lucene/admin/index.php,v 1.7 2010/02/08 21:27:23 wjames5 Exp $
  * @author   spider <spider@steelsun.com>
  */
 // +----------------------------------------------------------------------+
@@ -18,7 +18,7 @@
 // | Authors: spider <spider@steelsun.com>
 // +----------------------------------------------------------------------+
 
-include_once( '../../bit_setup_inc.php' );
+include_once( '../../kernel/setup_inc.php' );
 
 include_once( '../lookup_lucene_inc.php' );
 
