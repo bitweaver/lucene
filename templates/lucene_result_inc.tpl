@@ -4,6 +4,6 @@
 		</h3>
 			{$gLucene->getResult($resultNum,'data')|strip_tags|escape|truncate:1000}<br />
 			{assign var=contentTypeGuid value=$gLucene->getResult($resultNum,'content_type_guid')}
-			<small>{$gLibertySystem->mContentTypes.$contentTypeGuid.content_description} &nbsp;&bull;&nbsp; {tr}Relevance{/tr}: {$gLucene->getResult($resultNum,'score')*100|round:0}</small>
+			<small>{$gLibertySystem->getContentTypeName($contentTypeGuid)} &nbsp;&bull;&nbsp; {tr}Relevance{/tr}: {$gLucene->getResult($resultNum,'score')*100|round:0}</small>
 		</p>
 	</li>
