@@ -1,6 +1,6 @@
 <?php
 /**
- * @version  $Header: /cvsroot/bitweaver/_bit_lucene/BitCLucene.php,v 1.8 2009/10/01 14:17:01 wjames5 Exp $
+ * @version  $Header$
  * Lucene class
  *
  * @package  lucene

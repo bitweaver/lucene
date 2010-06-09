@@ -1,6 +1,6 @@
 <?php
 /**
- * $Header: /cvsroot/bitweaver/_bit_lucene/modules/mod_package_search.php,v 1.8 2009/10/01 14:17:02 wjames5 Exp $
+ * $Header$
  *
  * Copyright (c) 2004 bitweaver.org
  * Copyright (c) 2003 tikwiki.org
@@ -8,7 +8,7 @@
  * All Rights Reserved. See below for details and a complete list of authors.
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See http://www.gnu.org/copyleft/lesser.html for details
  *
- * $Id: mod_package_search.php,v 1.8 2009/10/01 14:17:02 wjames5 Exp $
+ * $Id$
  * @author  Luis Argerich (lrargerich@yahoo.com)
  * @package lucene
  * @subpackage modules
