@@ -26,8 +26,8 @@
 class BitLucene extends BitBase {
 	var $mLuceneId;
 
-	function BitLucene( $pLuceneId=NULL ) {
-		parent::BitBase();
+	function __construct( $pLuceneId=NULL ) {
+		parent::__construct();
 		$this->mLuceneId = $pLuceneId;
 	}
 
