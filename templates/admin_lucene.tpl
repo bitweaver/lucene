@@ -1,7 +1,7 @@
 {strip}
 {form legend="Lucene Settings"}
 	<input type="hidden" name="page" value="{$page}" />
-	<div class="row">
+	<div class="control-group">
 		{formlabel label="Lucene Engine" for="lucene_engine"}
 		{forminput}
 			<label><input name="lucene_engine" value="BitZendLucene" {if $gBitSystem->getConfig('lucene_engine')=='BitZendLucene'}checked="checked"{/if} type="radio"><strong>ZendLucene</strong></label>
@@ -13,7 +13,7 @@
 		{/forminput}
 	</div>
 
-	<div class="row submit">
+	<div class="control-group submit">
 		<input type="submit" name="submit" value="{tr}Save{/tr}" />
 	</div>
 {/form}
