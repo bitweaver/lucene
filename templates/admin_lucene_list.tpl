@@ -9,7 +9,7 @@
 
 		<div class="navbar">
 			<ul>
-				<li>{biticon ipackage="icons" iname="emblem-symbolic-link" iexplain="sort by"}</li>
+				<li>{booticon iname="icon-circle-arrow-right"  ipackage="icons"  iexplain="sort by"}</li>
 				<li>{smartlink ititle="Name" isort="group_name" offset=$offset idefault=1}</li>
 				<li>{smartlink ititle="Next Index" isort="last_indexed_desc" offset=$offset}</li>
 			</ul>
@@ -21,8 +21,8 @@
 			{foreach from=$indexList key=indexId item=idx}
 				<li class="item {cycle values='odd,even'}">
 					<div class="floaticon">
-						{smartlink ititle="Edit" ipackage="lucene" ifile="admin/index.php" ibiticon="icons/accessories-text-editor" lucene_id=$indexId action=edit}
-						{smartlink ititle="Remove" ipackage="lucene" ifile="admin/index.php" ibiticon="icons/edit-delete" action=delete lucene_id=$indexId}
+						{smartlink ititle="Edit" ipackage="lucene" ifile="admin/index.php" booticon="icon-edit" lucene_id=$indexId action=edit}
+						{smartlink ititle="Remove" ipackage="lucene" ifile="admin/index.php" booticon="icon-trash" action=delete lucene_id=$indexId}
 					</div>
 
 					<h2>{$idx.index_title}</h2>
