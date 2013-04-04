@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="control-group submit">
-				<input type="submit" name="{tr}Search{/tr}" />
+				<input type="submit" class="btn" name="{tr}Search{/tr}" />
 			</div>
 		{/form}
 
