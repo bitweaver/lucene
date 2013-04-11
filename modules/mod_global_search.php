@@ -22,5 +22,5 @@ global $gLibertySystem, $gLucene, $module_params;
 require_once( LUCENE_PKG_PATH.'lookup_lucene_inc.php' );
 	$searchIndexes = array( '' => 'All' );
 	array_push( $searchIndexes, $gLucene->getIndexList() );
-	$gBitSmarty->assign( 'searchIndexes', $searchIndexes );
+	$_template->tpl_vars['searchIndexes'] = new Smarty_variable( $searchIndexes );
 ?>

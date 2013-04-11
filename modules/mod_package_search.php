@@ -31,13 +31,13 @@
 		$searchTitle = '';
 	}
 	if( !empty( $module_params['search_index'] ) && is_numeric( $module_params['search_index'] ) ) {
-		$gBitSmarty->assign( 'searchIndex', $module_params['search_index'] );
+		$_template->tpl_vars['searchIndex'] = new Smarty_variable( $module_params['search_index'] );
 	} else {
 		$searchIndexes = array( '' => 'All' );
 		array_push( $searchIndexes, $gLucene->getIndexList() );
-		$gBitSmarty->assign( 'searchIndexes', $searchIndexes );
+		$_template->tpl_vars['searchIndexes'] = new Smarty_variable( $searchIndexes );
 	}
 
-	$gBitSmarty->assign( 'searchTitle', $searchTitle );
-	$gBitSmarty->assign( 'miniSearchRsrc', $searchTemplateRsrc );
+	$_template->tpl_vars['searchTitle'] = new Smarty_variable( $searchTitle );
+	$_template->tpl_vars['miniSearchRsrc'] = new Smarty_variable( $searchTemplateRsrc );
 ?>
