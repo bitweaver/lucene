@@ -60,8 +60,8 @@
 
 
 					<div class="control-group submit">
-						<input type="submit" class="btn" name="cancel" value="{tr}Cancel{/tr}" />&nbsp;
-						<input type="submit" class="btn" name="save" value="{tr}Save Index{/tr}" />
+						<input type="submit" class="btn btn-default" name="cancel" value="{tr}Cancel{/tr}" />&nbsp;
+						<input type="submit" class="btn btn-default" name="save" value="{tr}Save Index{/tr}" />
 					</div>
 			{/jstab}
 

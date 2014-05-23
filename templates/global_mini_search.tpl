@@ -8,7 +8,7 @@
         <br />
         {html_options options=$searchIndexes name="search_index" selected=$smarty.session.search_index  selected=$perms[user].level}
 	{/if}
-        <input type="submit" class="btn" name="search" value="{tr}go{/tr}"/>
+        <input type="submit" class="btn btn-default" name="search" value="{tr}go{/tr}"/>
     </div>
 {/form}
 {/strip}
