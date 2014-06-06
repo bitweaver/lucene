@@ -9,7 +9,7 @@
 		{formfeedback hash=$feedback}
 
 		{form legend="Search" method="get"}
-			<div class="control-group">
+			<div class="form-group">
 				{formlabel label="Search for" for="search_phrase"}
 				{forminput}
 					<input size="35" type="text" name="search_phrase" id="search_phrase" value="{$smarty.request.search_phrase}" />
@@ -18,7 +18,7 @@
 				{/forminput}
 			</div>
 
-			<div class="control-group submit">
+			<div class="form-group submit">
 				<input type="submit" class="btn btn-default" name="{tr}Search{/tr}" />
 			</div>
 		{/form}
